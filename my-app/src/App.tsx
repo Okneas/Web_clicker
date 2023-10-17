@@ -4,14 +4,16 @@ import { thisPlayer } from './index';
 import { Building } from './building';
 
 function App() {
-  const [clicks, setClicks] = useState(thisPlayer.pointsInTotal);
+  const [PPT, setPPT] = useState(thisPlayer.pointsInTotal);
+  const [PPC, setPPC] = useState(thisPlayer.pointsPerClick);
+  const [PPS, setPPS] = useState(thisPlayer.pointsPerSecond);
   let AddOnClick = () => {
     thisPlayer.pointsInTotal += thisPlayer.pointsPerClick;
-    setClicks(thisPlayer.pointsInTotal+thisPlayer.pointsPerClick);
+    setPPT(thisPlayer.pointsInTotal+thisPlayer.pointsPerClick);
   }
   useEffect(() => {
     const interval = setInterval(() => {
-      setClicks((prevCount) => prevCount + thisPlayer.pointsPerSecond);
+      setPPT((prevCount) => prevCount + thisPlayer.pointsPerSecond);
       thisPlayer.pointsInTotal += thisPlayer.pointsPerSecond;
     }, 1000);
 
@@ -22,7 +24,9 @@ function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setClicks(thisPlayer.pointsInTotal);
+      setPPT(thisPlayer.pointsInTotal);
+      setPPC(thisPlayer.pointsPerClick);
+      setPPS(thisPlayer.pointsPerSecond);
     }, 1);
 
     return () => {
@@ -36,11 +40,16 @@ function App() {
         <div className="clicker" onClick={AddOnClick}>
         </div>
         <div className='info_clicks'>
-          <p>Кол-во очков {clicks.toFixed(2)}</p>
+          <p>Всего очков: {PPT.toFixed(2)}</p>
+          <p>Очков в секунду: {PPS.toFixed(2)}</p>
+          <p>Кол-во очков за клик: {PPC.toFixed(2)}</p>
         </div>
       </div>
       <div className='building-panel'>
-        <Building name='Bulding 1' count={0} baseCost={25} profitPerSecond={1} price={25}/>
+        <Building name='Build1'/>
+        <Building name='Build2'/>
+        <Building name='Build3'/>
+        <Building name='Build4'/>
       </div>
     </div>
   );
