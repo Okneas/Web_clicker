@@ -3,7 +3,7 @@ export default class PlayerStat{
     pointsInTotal: number;
     pointsPerSecond: number;
     constructor(){
-        this.pointsInTotal = 0;
+        this.pointsInTotal = 1000000;
         this.pointsPerClick = 1;
         this.pointsPerSecond = 0;
     }

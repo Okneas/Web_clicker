@@ -65,3 +65,25 @@ code {
   margin-left: 10px;
   user-select: none;
 }
+
+.upgrade-plate{
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 40px;
+  height: 40px;
+  user-select: none;
+}
+
+.upgrade-panel{
+  display: flex;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 80%;
+  height: 200 px;
+  user-select: none;
+  flex-wrap: wrap;
+}
