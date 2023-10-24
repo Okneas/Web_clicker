@@ -1,20 +1,24 @@
 import { thisPlayer } from ".";
 import { Upgrade } from "./UpgradesPanel";
-import { listOfBuildings } from "./building";
+import {listOfBuildings } from "./index";
 
-let Up1Fun = () => {
-    thisPlayer.pointsPerClick++;
+let effectOnClick = (effect: number) => {
+    thisPlayer.pointsPerClick*=effect;
 }
 
-let Up1 = new Upgrade('', Up1Fun, "First Upgrade", 100);
-
-let Up2Fun = () => {
-    listOfBuildings.Build1.profitPerSecond*=2;
+let effectOnBuilding = (building: string, effect: number) => {
+    if(listOfBuildings[building] !== undefined){
+        listOfBuildings[building].profitPerSecond*=effect;
+    }
 }
 
-let Up2 = new Upgrade('', Up2Fun, "First Upgrade", 500);
+let Up1_1 = new Upgrade('', effectOnClick, "First Upgrade", 100, 1.1, '');
 
-export let listOfUpgradesForFirstBuilding = {10: Up1,
-                                             25: Up2,
-                                             30: Up1}; 
+let Up1_2 = new Upgrade('', effectOnBuilding, "Second Upgrade", 500, 1.1, "Build1");
+
+export let listOfUpgrades1 = {10: Up1_1,
+                              25: Up1_2,
+                              50: Up1_1};
+
+                              
 

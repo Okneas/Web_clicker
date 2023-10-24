@@ -43,11 +43,13 @@ code {
 
 .main-block{
   display: flex;
+  flex-wrap: wrap;
 }
 
 .clicker-block{
   width: 30%;
-  height: auto;
+  height: 400px;
+  margin: 10px;
 }
 
 .building-block{
@@ -86,4 +88,53 @@ code {
   height: 200 px;
   user-select: none;
   flex-wrap: wrap;
+}
+
+.registration-block {
+  margin-left: 10px;
+  margin-right: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+  width: 35%;
+  height: 400px;
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2px; 
+}
+
+.input-username {
+  margin-left: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: auto;
+  width: 200px;
+  height: 20px;
+}
+
+.input-password {
+  margin-left: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: auto;
+  width: 200px;
+  height: 20px;
+}
+
+.registration-text{
+  margin-left: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: auto;
+}
+
+.registration-button{
+  margin-left: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: auto;
+  width: 210px;
+  height: 40px;
 }

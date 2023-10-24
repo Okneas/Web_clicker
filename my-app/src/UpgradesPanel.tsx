@@ -4,13 +4,17 @@ import { containerOfUpgrades } from "./App";
 export class Upgrade{
     pathToImg: string;
     price: number;
-    EffectOfUpgrade: Function;
+    effectFunction: Function;
     nameOfUpgrade: string;
-    constructor(PTI: string, TOU: Function, NOU: string, P: number){
+    effectNumber: number;
+    effectOnBuilding: string;
+    constructor(PTI: string, TOU: Function, NOU: string, P: number, Eff: number, effOnB: string){
         this.nameOfUpgrade=NOU;
         this.pathToImg=PTI;
-        this.EffectOfUpgrade=TOU;
+        this.effectFunction=TOU;
         this.price=P;
+        this.effectNumber = Eff;
+        this.effectOnBuilding = effOnB;
     };
 }
 
@@ -23,7 +27,7 @@ export function UpgradePlate(props: propsUpgrade){
     let onBuyUpgrade = () => {
         if(thisPlayer.pointsInTotal >= props.up.price){
             thisPlayer.pointsInTotal -= props.up.price;
-            props.up.EffectOfUpgrade();
+            props.up.effectFunction(props.up.effectNumber, props.up.effectOnBuilding);
             delete containerOfUpgrades[props.id];
         }
     }

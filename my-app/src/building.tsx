@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { thisPlayer } from "./index";
-import { listOfUpgradesForFirstBuilding } from "./AllUpgrades";
 import  {containerOfUpgrades} from "./App";
 import { Upgrade, UpgradePlate } from "./UpgradesPanel";
+import { listOfBuildings } from "./index";
 
 interface BuildingProps {
     name: string;
@@ -23,15 +23,6 @@ export class BuildingClass {
         this.profitPerSecond = PPS;
         this.listOfUpgrades = listUp;
     }
-}
-
-export let listOfBuildings:Record<string, BuildingClass> = {
-    'Build1': new BuildingClass('Build1', 10, 0, 1, listOfUpgradesForFirstBuilding),
-    'Build2': new BuildingClass('Build2', 100, 0, 5, listOfUpgradesForFirstBuilding),
-    'Build3': new BuildingClass('Build3', 750, 0, 15, listOfUpgradesForFirstBuilding),
-    'Build4': new BuildingClass('Build4', 1600, 0, 50, listOfUpgradesForFirstBuilding),
-    'Build5': new BuildingClass('Build5', 5000, 0, 200, listOfUpgradesForFirstBuilding),
-    'default': new BuildingClass('default', NaN, NaN ,NaN, {}), 
 }
 
 export function Building(props: BuildingProps) {
