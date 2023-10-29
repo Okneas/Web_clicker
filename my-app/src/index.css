@@ -37,7 +37,7 @@ code {
   border: 1px solid black;
   border-radius: 5px;
   width: 30%;
-  height: 1050px;
+  height: 940px;
 }
 
 
@@ -137,4 +137,10 @@ code {
   margin-right: auto;
   width: 210px;
   height: 40px;
+}
+
+.hzchoza-block{
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
 }

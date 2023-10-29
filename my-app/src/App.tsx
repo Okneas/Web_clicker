@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { thisPlayer } from './index';
 import { Building } from './building';
-import {addUser} from './API';
+import {addUser, getUser} from './API';
 import { PlayerStatJSON } from './Player';
 
 export let containerOfUpgrades: JSX.Element[] = [];
@@ -21,7 +21,14 @@ export function App() {
 
     let playerJSON: PlayerStatJSON = new PlayerStatJSON(thisPlayer);
     addUser(playerJSON);
-    console.log(thisPlayer);
+  }
+
+  let LoadOnClick = () => {
+    const inputUsername = document.getElementById('username') as HTMLInputElement;
+    const inputPassword = document.getElementById('password') as HTMLInputElement;
+    thisPlayer.name = inputUsername.value;
+    thisPlayer.pswd = inputPassword.value;
+    getUser();
   }
 
   let AddOnClick = () => {
@@ -42,6 +49,11 @@ export function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      thisPlayer.pointsPerSecond = (thisPlayer.Build1.count*thisPlayer.Build1.profitPerSecond)+
+      (thisPlayer.Build2.count*thisPlayer.Build2.profitPerSecond)+
+      (thisPlayer.Build3.count*thisPlayer.Build3.profitPerSecond)+
+      (thisPlayer.Build4.count*thisPlayer.Build4.profitPerSecond)+
+      (thisPlayer.Build5.count*thisPlayer.Build5.profitPerSecond)
       setPPT(thisPlayer.pointsInTotal);
       setPPC(thisPlayer.pointsPerClick);
       setPPS(thisPlayer.pointsPerSecond);
@@ -68,7 +80,7 @@ export function App() {
         <input type="email" className='input-username' id='username'/>
         <p className='registration-text'>Пароль</p>
         <input type="email" className='input-password' id='password'/>
-        <button type="button" value="" className='registration-button' >Загрузить</button>
+        <button type="button" value="" className='registration-button' onClick={LoadOnClick}>Загрузить</button>
         <button type="button" value="" className='registration-button' onClick={AddPlayerOnClick}>Сохранить</button>
       </div>
       <div className='building-panel'>
@@ -80,6 +92,9 @@ export function App() {
         <Building name='Build3'/>
         <Building name='Build4'/>
         <Building name='Build5'/>
+      </div>
+      <div className='hzchoza-block'>
+          
       </div>
     </div>
   );

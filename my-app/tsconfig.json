@@ -24,7 +24,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "module": "commonjs",
     "outDir": "dist",
     "sourceMap": true

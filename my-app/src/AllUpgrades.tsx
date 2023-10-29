@@ -7,8 +7,8 @@ let effectOnClick = (effect: number) => {
 }
 
 let effectOnBuilding = (building: string, effect: number) => {
-    if(listOfBuildings[building] !== undefined){
-        listOfBuildings[building].profitPerSecond*=effect;
+    if(thisPlayer[building] !== undefined){
+        thisPlayer[building].profitPerSecond*=effect;
     }
 }
 

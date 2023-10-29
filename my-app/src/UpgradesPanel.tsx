@@ -27,7 +27,7 @@ export function UpgradePlate(props: propsUpgrade){
     let onBuyUpgrade = () => {
         if(thisPlayer.pointsInTotal >= props.up.price){
             thisPlayer.pointsInTotal -= props.up.price;
-            props.up.effectFunction(props.up.effectNumber, props.up.effectOnBuilding);
+            props.up.effectFunction(props.up.effectOnBuilding, props.up.effectNumber);
             delete containerOfUpgrades[props.id];
         }
     }
