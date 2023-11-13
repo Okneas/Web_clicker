@@ -4,7 +4,10 @@ import './index.css';
 import App from './App';
 import {PlayerStat} from './Player';
 import {BuildingClass} from './building'
+
 export let thisPlayer = new PlayerStat();
+
+export let listOfFuncOfUp :Record<string,Function> = {};
 
 export let listOfBuildings:Record<string, BuildingClass> = {
   'Build1': thisPlayer.Build1,
@@ -12,7 +15,7 @@ export let listOfBuildings:Record<string, BuildingClass> = {
   'Build3': thisPlayer.Build3,
   'Build4': thisPlayer.Build4,
   'Build5': thisPlayer.Build5,
-  'default': new BuildingClass('default', NaN, NaN ,NaN, {}), 
+  'default': new BuildingClass(0, 'deaf', NaN, NaN, NaN, {}), 
 }
 
 const root = ReactDOM.createRoot(

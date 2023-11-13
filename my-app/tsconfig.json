@@ -1,11 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "paths": {
-      "crypto": [
-        "node_modules/crypto-js"
-      ]
-    },
     "target": "es6",
     "lib": [
       "dom",

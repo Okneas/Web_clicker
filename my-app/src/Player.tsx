@@ -1,5 +1,6 @@
 import { BuildingClass } from "./building";
-import { listOfUpgrades1 } from "./AllUpgrades";
+import { listOfUpgrades } from "./AllUpgrades";
+import { Upgrade } from "./UpgradesPanel";
 
 export class PlayerStat{
     id: number;
@@ -13,31 +14,20 @@ export class PlayerStat{
     pointsPerClick:number;
     pointsInTotal: number;
     pointsPerSecond: number;
+    availableUpgrades: Array<[number, number]>;
     constructor(){
-        this.pointsInTotal = 0;
+        this.pointsInTotal = 10000;
         this.pointsPerClick = 1;
         this.pointsPerSecond = 0;
         this.id = 0;
         this.pswd = "";
         this.name = "";
-        this.Build1 = new BuildingClass('Build1', 10, 0, 1, listOfUpgrades1);
-        this.Build2 = new BuildingClass('Build2', 100, 0, 3, listOfUpgrades1);
-        this.Build3 = new BuildingClass('Build3', 1200, 0, 10, listOfUpgrades1);
-        this.Build4 = new BuildingClass('Build4', 7000, 0, 60, listOfUpgrades1);
-        this.Build5 = new BuildingClass('Build5', 20000, 0, 200, listOfUpgrades1);
-    }
-    loadPlayer(userJSON: PlayerStatJSON) {
-        this.pointsInTotal = Number(userJSON.pointsInTotal);
-        this.pointsPerClick = Number(userJSON.pointsPerClick);
-        this.pointsPerSecond = Number(userJSON.pointsPerSecond);
-        this.id = Number(userJSON.id);
-        this.pswd = userJSON.pswd;
-        this.name = userJSON.name;
-        this.Build1 = JSON.parse(userJSON.Build1);
-        this.Build2 = JSON.parse(userJSON.Build2);
-        this.Build3 = JSON.parse(userJSON.Build3);
-        this.Build4 = JSON.parse(userJSON.Build4);
-        this.Build5 = JSON.parse(userJSON.Build5);
+        this.Build1 = new BuildingClass(1, 'Build1', 10, 0, 1, listOfUpgrades[1]);
+        this.Build2 = new BuildingClass(1, 'Build2', 100, 0, 3, listOfUpgrades[1]);
+        this.Build3 = new BuildingClass(1, 'Build3', 1200, 0, 10, listOfUpgrades[1]);
+        this.Build4 = new BuildingClass(1, 'Build4', 7000, 0, 60, listOfUpgrades[1]);
+        this.Build5 = new BuildingClass(1, 'Build5', 20000, 0, 200, listOfUpgrades[1]);
+        this.availableUpgrades = [];
     }
 }
 
@@ -53,6 +43,7 @@ export class PlayerStatJSON{
     pointsPerClick:string;
     pointsInTotal: string;
     pointsPerSecond: string;
+    availableUpgrades: string;
     constructor(player: PlayerStat){
         this.pointsInTotal = player.pointsInTotal.toString();
         this.pointsPerClick = player.pointsPerClick.toString();
@@ -66,5 +57,6 @@ export class PlayerStatJSON{
         this.Build3 = JSON.stringify(player.Build3);
         this.Build4 = JSON.stringify(player.Build4);
         this.Build5 = JSON.stringify(player.Build5);
+        this.availableUpgrades = JSON.stringify(player.availableUpgrades);
     }
 }

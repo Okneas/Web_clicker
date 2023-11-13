@@ -1,6 +1,9 @@
 import { listOfBuildings, thisPlayer } from "./index";
 import {PlayerStatJSON} from "./Player";
 import axios from "axios";
+import {UpgradePlate} from "./UpgradesPanel";
+import { containerOfUpgrades } from "./App";
+import { listOfUpgrades } from "./AllUpgrades";
 
 export const addUser = async (user:  PlayerStatJSON) => {
     try {
@@ -31,6 +34,11 @@ export const getUser = async () => {
       thisPlayer.pointsInTotal = Number(response.data.pointsInTotal);
       thisPlayer.pointsPerClick = Number(response.data.pointsPerClick);
       thisPlayer.pswd = response.data.pswd;
+      thisPlayer.availableUpgrades = JSON.parse(response.data.availableUpgrades);
+      thisPlayer.availableUpgrades.forEach(element => {
+        containerOfUpgrades.push(<UpgradePlate up={listOfUpgrades[element[0]][element[1]]} id={containerOfUpgrades.length}/>);
+        console.log(containerOfUpgrades);
+      });
     }// Ответ от сервера
   }
   catch(error){

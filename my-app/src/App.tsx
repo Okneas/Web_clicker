@@ -4,8 +4,20 @@ import { thisPlayer } from './index';
 import { Building } from './building';
 import {addUser, getUser} from './API';
 import { PlayerStatJSON } from './Player';
+import { CaravanGen, Caravan } from './caravan';
 
 export let containerOfUpgrades: JSX.Element[] = [];
+
+export let changeMultPerSecond = (mult: number) => {
+  bonusMultPerSecond = mult;
+}
+
+export let changeMultPerClick = (mult: number) => {
+  bonusMultPerClick = mult;
+}
+
+let bonusMultPerSecond = 1;
+let bonusMultPerClick = 1;
 
 export function App() {
   const [PPT, setPPT] = useState(thisPlayer.pointsInTotal);
@@ -32,7 +44,7 @@ export function App() {
   }
 
   let AddOnClick = () => {
-    thisPlayer.pointsInTotal += thisPlayer.pointsPerClick;
+    thisPlayer.pointsInTotal += bonusMultPerClick*thisPlayer.pointsPerClick;
     setPPT(thisPlayer.pointsInTotal+thisPlayer.pointsPerClick);
   }
 
@@ -49,13 +61,13 @@ export function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      thisPlayer.pointsPerSecond = (thisPlayer.Build1.count*thisPlayer.Build1.profitPerSecond)+
+      thisPlayer.pointsPerSecond = bonusMultPerSecond*((thisPlayer.Build1.count*thisPlayer.Build1.profitPerSecond)+
       (thisPlayer.Build2.count*thisPlayer.Build2.profitPerSecond)+
       (thisPlayer.Build3.count*thisPlayer.Build3.profitPerSecond)+
       (thisPlayer.Build4.count*thisPlayer.Build4.profitPerSecond)+
-      (thisPlayer.Build5.count*thisPlayer.Build5.profitPerSecond)
+      (thisPlayer.Build5.count*thisPlayer.Build5.profitPerSecond));
       setPPT(thisPlayer.pointsInTotal);
-      setPPC(thisPlayer.pointsPerClick);
+      setPPC(bonusMultPerClick*thisPlayer.pointsPerClick);
       setPPS(thisPlayer.pointsPerSecond);
     }, 1);
 
@@ -66,6 +78,8 @@ export function App() {
 
   return (
     <div className='main-block'>
+      <CaravanGen key={1}/>
+  
       <div className='clicker-block'>
         <div className="clicker" onClick={AddOnClick}>
         </div>
@@ -93,8 +107,7 @@ export function App() {
         <Building name='Build4'/>
         <Building name='Build5'/>
       </div>
-      <div className='hzchoza-block'>
-          
+      <div className='hzchoza-block' >
       </div>
     </div>
   );
