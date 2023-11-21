@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { thisPlayer } from "./index";
-import  {containerOfUpgrades} from "./App";
+import  {containerOfUpgrades, beatifyNumber} from "./App";
 import { Upgrade, UpgradePlate } from "./UpgradesPanel";
 import { listOfBuildings } from "./index";
 
@@ -53,7 +53,6 @@ export function Building(props: BuildingProps) {
             thisPlayer[props.name].count++;
             thisPlayer[props.name].price = Math.round(thisPlayer[props.name].baseCost*(1.15**thisPlayer[props.name].count)*100)/100;
             if(thisPlayer[props.name].listOfUpgrades[thisPlayer[props.name].count] !== undefined){
-                console.log(thisPlayer[props.name].listOfUpgrades);
                 containerOfUpgrades.push(<UpgradePlate up={thisPlayer[props.name].listOfUpgrades[thisPlayer[props.name].count]} id={containerOfUpgrades.length}/>);
                 thisPlayer.availableUpgrades.push([thisPlayer[props.name].id, thisPlayer[props.name].count]);
             }
@@ -66,8 +65,8 @@ export function Building(props: BuildingProps) {
     }
     return (
         <div className="building-block" onClick={onBuy}>
-            <p>Name: {stats.name} Price: {Math.round(stats.price*100)/100}</p>
-            <p>Count: {stats.count} Profit Per Second: {Math.round(stats.PPS*stats.count*100)/100}</p>
+            <p>Name: {stats.name} Price: {beatifyNumber(Math.round(stats.price*100)/100)}</p>
+            <p>Count: {stats.count} Profit Per Second: {beatifyNumber(Math.round(stats.PPS*stats.count*100)/100)}</p>
         </div>
     );
 }

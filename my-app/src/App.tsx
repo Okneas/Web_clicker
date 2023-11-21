@@ -6,6 +6,33 @@ import {addUser, getUser} from './API';
 import { PlayerStatJSON } from './Player';
 import { CaravanGen, Caravan } from './caravan';
 
+export let beatifyNumber = (num: number) => {
+  if(num <= 10**3)
+    return num.toFixed(2);
+  else if(num >= 10**3) 
+    return (num/(10**3)).toFixed(2) + "K";
+  else if(num >= 10**6)
+    return (num/(10**6)).toFixed(2) + "M";
+  else if(num >= 10**9)
+    return (num/(10**9)).toFixed(2) + "B";
+  else if(num >= 10**12)
+    return (num/(10**12)).toFixed(2) + "T";
+  else if(num >= 10**15)
+    return (num/(10**15)).toFixed(2) + "Qa";
+  else if(num >= 10**18)
+    return (num/(10**18)).toFixed(2) + "Qi";
+  else if(num >= 10**21)
+    return (num/(10**21)).toFixed(2) + "Sx";
+  else if(num >= 10**24)
+    return (num/(10**24)).toFixed(2) + "Sp";
+  else if(num >= 10**27)
+    return (num/(10**27)).toFixed(2) + "Oc";
+  else if(num >= 10**30)
+    return (num/(10**30)).toFixed(2) + "No";
+  else if(num >= 10**33)
+    return (num/(10**33)).toFixed(2) + "De";
+}
+
 export let containerOfUpgrades: JSX.Element[] = [];
 
 export let changeMultPerSecond = (mult: number) => {
@@ -44,7 +71,7 @@ export function App() {
   }
 
   let AddOnClick = () => {
-    thisPlayer.pointsInTotal += bonusMultPerClick*thisPlayer.pointsPerClick;
+    thisPlayer.pointsInTotal += thisPlayer.pointsPerClick;
     setPPT(thisPlayer.pointsInTotal+thisPlayer.pointsPerClick);
   }
 
@@ -66,8 +93,10 @@ export function App() {
       (thisPlayer.Build3.count*thisPlayer.Build3.profitPerSecond)+
       (thisPlayer.Build4.count*thisPlayer.Build4.profitPerSecond)+
       (thisPlayer.Build5.count*thisPlayer.Build5.profitPerSecond));
+      thisPlayer.pointsPerClick = bonusMultPerClick * (thisPlayer.deafaultPointsPerClick + 
+                                  (thisPlayer.pointsPerSecond * (thisPlayer.percentForClick/100)));
       setPPT(thisPlayer.pointsInTotal);
-      setPPC(bonusMultPerClick*thisPlayer.pointsPerClick);
+      setPPC(thisPlayer.pointsPerClick);  
       setPPS(thisPlayer.pointsPerSecond);
     }, 1);
 
@@ -84,9 +113,9 @@ export function App() {
         <div className="clicker" onClick={AddOnClick}>
         </div>
         <div className='info_clicks'>
-          <p>Всего очков: {PPT.toFixed(2)}</p>
-          <p>Очков в секунду: {PPS.toFixed(2)}</p>
-          <p>Кол-во очков за клик: {PPC.toFixed(2)}</p>
+          <p>Всего очков: {beatifyNumber(PPT)}</p>
+          <p>Очков в секунду: {beatifyNumber(PPS)}</p>
+          <p>Кол-во очков за клик: {beatifyNumber(PPC)}</p>
         </div>
       </div>
       <div className='registration-block'>

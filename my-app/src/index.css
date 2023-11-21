@@ -165,3 +165,18 @@ code {
 .caravan-gen{
   position: absolute;
 }
+
+.upgrade-tip {
+  display: none;
+  position: absolute;
+  width: 400px;
+  height: 250px;
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: white;
+}
+
+.upgrade-plate:hover + .upgrade-tip {
+  display:flex;
+}
+
