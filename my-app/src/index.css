@@ -7,12 +7,70 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.skull{
+  /*the content is the nose*/
+  z-index: 4;
+	content: "";
+	display: block;
+	position: absolute;
+	width:2px;
+	height:2px;
+	bottom:-6px;
+	left:50%;
+	margin-left: -1px;
+	border-radius: 1px;
+	background: #000;
+
+	box-shadow:
+    /*eyes*/
+		-5px -4px 0 2px #000,
+		5px -4px 0 2px #000,
+		/*head*/
+		0 -5px 0 10px ivory,
+    /*teeth*/
+		-2px 6px 0 0 ivory,
+		2px 6px 0 0 ivory,
+		-6px 5px 0 0 ivory,
+		6px 5px 0 0 ivory,
+    /*border*/
+		0 -5px 0 11px #000
+	;
+  animation: fall 1500ms;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fall {
+  0% {
+    transform: translate(0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+    opacity: 0;
+  }
+  
+  15% {
+    transform: translate(10px, -10px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(1);
+    opacity: 1;
+  }
+  
+  100% {
+    transform: translate(25px, 200px) rotateX(180deg) rotateY(270deg) rotateZ(90deg) scale(1);
+    opacity: 0;
+  }
+}
+
+.glow-point {
+  z-index: 3;
+  position: absolute;
+  box-shadow: 0rem 0rem 2rem 0.7rem green;
+  pointer-events: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
 .clicker{
+  position: relative;
+  left: 175px;
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -20,6 +78,18 @@ code {
   height: 200px;
   border-radius: 100%;
   background-color: aquamarine;
+}
+
+.clicker:active{
+  top: 10px;
+  width: 180px;
+  height: 180px;
+}
+
+.clicker-wrap{
+  position: relative;
+  width: 200px;
+  height: 200px;
 }
 
 .info_clicks{

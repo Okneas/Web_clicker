@@ -50,8 +50,91 @@ export function App() {
   const [PPT, setPPT] = useState(thisPlayer.pointsInTotal);
   const [PPC, setPPC] = useState(thisPlayer.pointsPerClick);
   const [PPS, setPPS] = useState(thisPlayer.pointsPerSecond);
+  let cordinates = {x: 0, y: 0};
+
+  let body = document.querySelector("body");
+
+  const calcDistance = (a, b) => {
+    const diffX = b.x - a.x,
+          diffY = b.y - a.y;
+          console.log(a, b);
+    return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+  }
+
+  const determinePointQuantity = distance => {
+    return Math.max(Math.floor(distance / 10),1);
+  }
+
+  let start = new Date().getTime();
+
+  const originPosition = { x: 0, y: 0 };
+
+  const last = {
+    starTimestamp: start,
+    starPosition: originPosition,
+    mousePosition: originPosition
+  }
+
+  const adjustLastMousePosition = position => {
+    if(last.mousePosition.x === 0 && last.mousePosition.y === 0) {
+      last.mousePosition = position;
+    }
+  };
+
+  const appendElement = element => document.body.appendChild(element),
+      removeElement = (element, delay) => setTimeout(() => document.body.removeChild(element), delay);
+
+  const createGlowPoint = position => {
+    const glow = document.createElement("div");
+    
+    glow.className = "glow-point";
+    
+    glow.style.left = position.x+"px";
+    glow.style.top = position.y+"px";
+    
+    appendElement(glow)
+    
+    removeElement(glow, 75);
+  }
+
+  const createGlow = (last, current) => {
+    const distance = calcDistance(last, current);
+    const quantity = determinePointQuantity(distance);
+    const dx = (current.x - last.x) / quantity,
+          dy = (current.y - last.y) / quantity;
+    
+    Array.from(Array(quantity)).forEach((_, index) => { 
+      const x = last.x + dx * index, 
+            y = last.y + dy * index;
+      
+      createGlowPoint({ x, y });
+    });
+  }
+
+  const updateLastMousePosition = position => last.mousePosition = position;
+
+  const handleMouseObjects = (e:MouseEvent) => {
+    const mousePosition = { x: e.clientX, y: e.clientY }
   
-  let AddPlayerOnClick = () => {
+    adjustLastMousePosition(mousePosition);
+    let time = new Date().getTime();
+    if(calcDistance(cordinates,{x: mousePosition.x, y: mousePosition.y}) >= 100 || time-start >= 250){
+      start = time;
+      cordinates = {x: mousePosition.x, y: mousePosition.y};
+      let dot = document.createElement("div");
+      dot.classList.add("skull");
+      dot.style.top = mousePosition.y  + "px";
+      dot.style.left = mousePosition.x + "px";
+      body?.appendChild(dot);
+      setTimeout(() => {
+        body?.removeChild(dot);
+      }, 1500)
+    }
+    createGlow(last.mousePosition, mousePosition);
+    updateLastMousePosition(mousePosition);
+  } 
+  
+  const AddPlayerOnClick = () => {
     const inputUsername = document.getElementById('username') as HTMLInputElement;
     const inputPassword = document.getElementById('password') as HTMLInputElement;
 
@@ -62,7 +145,7 @@ export function App() {
     addUser(playerJSON);
   }
 
-  let LoadOnClick = () => {
+  const LoadOnClick = () => {
     const inputUsername = document.getElementById('username') as HTMLInputElement;
     const inputPassword = document.getElementById('password') as HTMLInputElement;
     thisPlayer.name = inputUsername.value;
@@ -70,7 +153,7 @@ export function App() {
     getUser();
   }
 
-  let AddOnClick = () => {
+  const AddOnClick = () => {
     thisPlayer.pointsInTotal += thisPlayer.pointsPerClick;
     setPPT(thisPlayer.pointsInTotal+thisPlayer.pointsPerClick);
   }
@@ -99,18 +182,27 @@ export function App() {
       setPPC(thisPlayer.pointsPerClick);  
       setPPS(thisPlayer.pointsPerSecond);
     }, 1);
-
     return () => {
       clearInterval(interval);
     };
   }, []);
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseObjects);
+
+    return () => {
+      window.removeEventListener('mousemove', handleMouseObjects);
+    };
+  },[]);
 
   return (
     <div className='main-block'>
       <CaravanGen key={1}/>
   
       <div className='clicker-block'>
-        <div className="clicker" onClick={AddOnClick}>
+        <div className='clicker-wrap'>
+          <div className="clicker" onClick={AddOnClick}>
+          </div>
         </div>
         <div className='info_clicks'>
           <p>Всего очков: {beatifyNumber(PPT)}</p>
