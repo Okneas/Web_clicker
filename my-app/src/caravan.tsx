@@ -108,15 +108,13 @@ export function Caravan(props: CaravanProps) {
     }, []);
 
     return(
-      <div onClick={deleteOnClick} style={{
+      <div onClick={deleteOnClick} className="caravan-pop" style={{
         zIndex:10,
         position: 'absolute',
         left: `${props.x}px`,
         top:  `${props.y}px`,
         width: "100px",
         height: "100px",
-        borderRadius: "55%",
-        backgroundColor: "black"
       }}>
       </div>
     );

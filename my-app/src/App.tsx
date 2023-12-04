@@ -57,7 +57,6 @@ export function App() {
   const calcDistance = (a, b) => {
     const diffX = b.x - a.x,
           diffY = b.y - a.y;
-          console.log(a, b);
     return Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
   }
 
@@ -114,7 +113,7 @@ export function App() {
   const updateLastMousePosition = position => last.mousePosition = position;
 
   const handleMouseObjects = (e:MouseEvent) => {
-    const mousePosition = { x: e.clientX, y: e.clientY }
+    const mousePosition = { x: e.pageX, y: e.pageY }
   
     adjustLastMousePosition(mousePosition);
     let time = new Date().getTime();
@@ -122,7 +121,13 @@ export function App() {
       start = time;
       cordinates = {x: mousePosition.x, y: mousePosition.y};
       let dot = document.createElement("div");
-      dot.classList.add("skull");
+      let rand = Math.round(Math.random() * (2 - 1) + 1);
+      if(rand === 1){
+        dot.classList.add("virus");
+      }
+      else if(rand === 2){
+        dot.classList.add("skull");
+      }
       dot.style.top = mousePosition.y  + "px";
       dot.style.left = mousePosition.x + "px";
       body?.appendChild(dot);
@@ -189,7 +194,7 @@ export function App() {
 
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseObjects);
-
+    document.body.onmouseleave = () => updateLastMousePosition(originPosition);
     return () => {
       window.removeEventListener('mousemove', handleMouseObjects);
     };
