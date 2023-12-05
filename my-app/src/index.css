@@ -1,35 +1,106 @@
+/* Общие стили для body: сброс отступов, установка семейства шрифтов и сглаживание шрифтов для лучшей читаемости */
 body {
+  cursor: url(../public/coursor.png), pointer;
   margin: 0;
+  /* Список семейств шрифтов для обеспечения совместимости на разных платформах */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+  /* Сглаживание шрифтов для Webkit (Chrome, Safari) и Mozilla (Firefox) */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Стилизация иконки черепа с глазами, головой, зубами и обводкой с использованием box-shadow */
+.skull{
+  width:30px;
+	height:30px;
+  z-index: 4;
+  position: absolute;
+  background-image: url(../public/bob.png);
+  animation: fall 1300ms; /* Анимация падения */
+  animation-fill-mode: forwards; /* Анимация продолжается до конца ее выполнения */
+}
+
+/* Стилизация вируса с использованием фонового изображения и анимации падения */
+.virus{
+  width:30px;
+	height:30px;
+  z-index: 4;
+  position: absolute;
+  background-image: url(../public/virus1.png); /* Путь к изображению вируса */
+  animation: fall 1300ms; /* Анимация падения */
+  animation-fill-mode: forwards; /* Анимация продолжается до конца ее выполнения */
+}
+
+/* Определение ключевых кадров для анимации падения */
+@keyframes fall {
+  0% {
+    transform: translate(0px, 0px) rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1);
+    opacity: 0;
+  }
+  
+  60% {
+    transform: translate(10px, -10px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(1);
+    opacity: 1;
+  }
+  
+  100% {
+    transform: translate(25px, 200px) rotateX(180deg) rotateY(270deg) rotateZ(90deg) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Стилизация светящейся точки с тенью */
+.glow-point {
+  z-index: 3;
+  position: absolute;
+  box-shadow: 0rem 0rem 2rem 0.7rem green; /* Зеленая тень */
+  pointer-events: none; /* Элемент не реагирует на события мыши */
+}
+
+/* Стили для элемента <code> с использованием моноширинного шрифта */
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
+/* Стили для кнопки, изменяющие ее размер и положение при активации (нажатии) */
 .clicker{
+  position: relative;
+  left: 175px;
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   width: 200px;
   height: 200px;
-  border-radius: 100%;
-  background-color: aquamarine;
+  background-image: url(../public/mask.png); /* Цвет фона */
 }
 
+.clicker:active{  
+  top: 5px;
+  left: 165px;
+  width: 180px;
+  height: 180px; /* Уменьшение размера при нажатии */
+}
+
+/* Обертка для кнопки */
+.clicker-wrap{
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+/* Стили для блока с информацией о кликах */
 .info_clicks{
   margin-left: auto;
   margin-right: auto;
   width: 50%;
-  user-select: none;
-  text-align: center;
+  user-select: none; /* Запрет выделения текста */
+  text-align: center; /* Выравнивание текста по центру */
 }
 
+/* Стили для панели со зданиями */
 .building-panel{
   z-index: 1;
   margin-left: auto;
@@ -41,12 +112,13 @@ code {
   height: 940px;
 }
 
-
+/* Основной блок для размещения элементов */
 .main-block{
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: wrap; /* Перенос элементов на следующую строку при нехватке места */
 }
 
+/* Блок для кнопки кликера */
 .clicker-block{
   z-index: 1;
   width: 30%;
@@ -54,6 +126,7 @@ code {
   margin: 10px;
 }
 
+/* Блок для отдельного здания */
 .building-block{
   z-index: 1;
   display: flexbox;
@@ -66,12 +139,14 @@ code {
   height: 100px;
 }
 
+/* Стили для текста внутри блока здания */
 .building-block p {
   z-index: 1;
   margin-left: 10px;
-  user-select: none;
+  user-select: none; /* Запрет выделения текста */
 }
 
+/* Стили для плашки улучшения */
 .upgrade-plate{
   z-index: 1;
   margin: 5px;
@@ -79,9 +154,10 @@ code {
   border: 1px solid black;
   width: 40px;
   height: 40px;
-  user-select: none;
+  user-select: none; /* Запрет выделения текста */
 }
 
+/* Панель улучшений */
 .upgrade-panel{
   z-index: 1;
   display: flex;
@@ -92,10 +168,11 @@ code {
   border: 1px solid black;
   width: 80%;
   height: 200 px;
-  user-select: none;
-  flex-wrap: wrap;
+  user-select: none; /* Запрет выделения текста */
+  flex-wrap: wrap; /* Перенос элементов на следующую строку при нехватке места */
 }
 
+/* Блок регистрации */
 .registration-block {
   margin-left: 10px;
   margin-right: auto;
@@ -105,23 +182,15 @@ code {
   border: 1px solid black;
   width: 35%;
   height: 400px;
-  user-select: none;
+  user-select: none; /* Запрет выделения текста */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Вертикальное расположение элементов */
   line-height: 1.2px; 
   z-index: 1;
 }
 
-.input-username {
-  margin-left: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  margin-right: auto;
-  width: 200px;
-  height: 20px;
-  user-select: none;
-}
-
+/* Поля ввода для имени пользователя и пароля */
+.input-username,
 .input-password {
   margin-left: auto;
   margin-top: 20px;
@@ -129,9 +198,10 @@ code {
   margin-right: auto;
   width: 200px;
   height: 20px;
-  user-select: none;
+  user-select: none; /* Запрет выделения текста */
 }
 
+/* Текст в блоке регистрации */
 .registration-text{
   margin-left: auto;
   margin-top: 20px;
@@ -157,8 +227,7 @@ code {
 .caravan-pop{
   width: 100px;
   height: 100px;
-  border-radius: 100%;
-  background-color: black;
+  background-image: url(../public/caravan.png);
   z-index: 10;
 }
 
