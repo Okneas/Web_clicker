@@ -33,6 +33,7 @@ export function Building(props: BuildingProps) {
         price: thisPlayer[props.name].price,
         count:thisPlayer[props.name].count,
         PPS: thisPlayer[props.name].profitPerSecond,
+        prestigePoints: thisPlayer.prestigePoints,
     });
     useEffect(() => {
         const interval = setInterval(() => {
@@ -41,6 +42,7 @@ export function Building(props: BuildingProps) {
                 price: thisPlayer[props.name].price,
                 count: thisPlayer[props.name].count,
                 PPS:thisPlayer[props.name].profitPerSecond,
+                prestigePoints: thisPlayer.prestigePoints,
             });
         }, 1);
         return () => {
@@ -59,14 +61,15 @@ export function Building(props: BuildingProps) {
             setStats({name: thisPlayer[props.name].name,
                 price: thisPlayer[props.name].price,
                 count: thisPlayer[props.name].count,
-                PPS: thisPlayer[props.name].profitPerSecond});
+                PPS: thisPlayer[props.name].profitPerSecond,
+                prestigePoints: thisPlayer.prestigePoints,});
             
         }
     }
     return (
         <div className="building-block" onClick={onBuy}>
             <p>Name: {stats.name} Price: {beatifyNumber(Math.round(stats.price*100)/100)}</p>
-            <p>Count: {stats.count} Profit Per Second: {beatifyNumber(Math.round(stats.PPS*stats.count*100)/100)}</p>
+            <p>Count: {stats.count} Profit Per Second: {beatifyNumber((Math.round(stats.PPS*stats.count*100)/100) + (Math.round(stats.PPS*stats.count*100)/100)*(stats.prestigePoints/100))}</p>
         </div>
     );
 }
