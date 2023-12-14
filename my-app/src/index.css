@@ -18,7 +18,7 @@ body {
   z-index: 4;
   position: absolute;
   background-image: url(../public/bob.png);
-  animation: fall 1300ms; /* Анимация падения */
+  animation: fall 700ms; /* Анимация падения */
   animation-fill-mode: forwards; /* Анимация продолжается до конца ее выполнения */
 }
 
@@ -29,7 +29,7 @@ body {
   z-index: 4;
   position: absolute;
   background-image: url(../public/virus1.png); /* Путь к изображению вируса */
-  animation: fall 1300ms; /* Анимация падения */
+  animation: fall 700ms; /* Анимация падения */
   animation-fill-mode: forwards; /* Анимация продолжается до конца ее выполнения */
 }
 
@@ -41,12 +41,12 @@ body {
   }
   
   60% {
-    transform: translate(10px, -10px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(1);
+    transform: translate(10px, 0px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(1);
     opacity: 1;
   }
   
   100% {
-    transform: translate(25px, 200px) rotateX(180deg) rotateY(270deg) rotateZ(90deg) scale(1);
+    transform: translate(25px, 50px) rotateX(180deg) rotateY(270deg) rotateZ(90deg) scale(1);
     opacity: 0;
   }
 }
