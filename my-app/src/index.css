@@ -18,7 +18,7 @@ body {
   z-index: 4;
   position: absolute;
   background-image: url(../public/bob.png);
-  animation: fall 1300ms; /* Анимация падения */
+  animation: fall 700ms; /* Анимация падения */
   animation-fill-mode: forwards; /* Анимация продолжается до конца ее выполнения */
 }
 
@@ -29,7 +29,7 @@ body {
   z-index: 4;
   position: absolute;
   background-image: url(../public/virus1.png); /* Путь к изображению вируса */
-  animation: fall 1300ms; /* Анимация падения */
+  animation: fall 700ms; /* Анимация падения */
   animation-fill-mode: forwards; /* Анимация продолжается до конца ее выполнения */
 }
 
@@ -41,12 +41,12 @@ body {
   }
   
   60% {
-    transform: translate(10px, -10px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(1);
+    transform: translate(10px, 0px) rotateX(45deg) rotateY(30deg) rotateZ(0deg) scale(1);
     opacity: 1;
   }
   
   100% {
-    transform: translate(25px, 200px) rotateX(180deg) rotateY(270deg) rotateZ(90deg) scale(1);
+    transform: translate(25px, 50px) rotateX(180deg) rotateY(270deg) rotateZ(90deg) scale(1);
     opacity: 0;
   }
 }
@@ -73,15 +73,8 @@ code {
   margin-left: auto;
   margin-right: auto;
   width: 200px;
-  height: 200px;
+  height: 150px;
   background-image: url(../public/mask.png); /* Цвет фона */
-}
-
-.clicker:active{  
-  top: 5px;
-  left: 165px;
-  width: 180px;
-  height: 180px; /* Уменьшение размера при нажатии */
 }
 
 /* Обертка для кнопки */
@@ -93,11 +86,13 @@ code {
 
 /* Стили для блока с информацией о кликах */
 .info_clicks{
+  position: relative;
   margin-left: auto;
   margin-right: auto;
-  width: 50%;
+  width: 56%;
   user-select: none; /* Запрет выделения текста */
   text-align: center; /* Выравнивание текста по центру */
+  top: -30px;
 }
 
 /* Стили для панели со зданиями */
@@ -167,7 +162,7 @@ code {
   border-radius: 5px;
   border: 1px solid black;
   width: 80%;
-  height: 200 px;
+  height: 100px;
   user-select: none; /* Запрет выделения текста */
   flex-wrap: wrap; /* Перенос элементов на следующую строку при нехватке места */
 }
@@ -249,3 +244,11 @@ code {
   display:flex;
 }
 
+.prestige-button{
+  user-select: none;
+  position: relative;
+  width: 200px;
+  height: 30px;
+  left: 175px;
+  top: -35px;
+}

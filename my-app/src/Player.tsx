@@ -1,6 +1,5 @@
 import { BuildingClass } from "./building";
 import { listOfUpgrades } from "./AllUpgrades";
-import { Upgrade } from "./UpgradesPanel";
 
 export class PlayerStat{
     id: number;
@@ -17,9 +16,11 @@ export class PlayerStat{
     pointsInTotal: number;
     pointsPerSecond: number;
     availableUpgrades: Array<[number, number]>;
+    prestigePoints: number;
+    prestigePointsOnCurrentRun: number;
     constructor(){
         this.pointsInTotal = 10000;
-        this.pointsPerClick = 1;
+        this.pointsPerClick = 100000;
         this.pointsPerSecond = 0;
         this.id = 0;
         this.pswd = "";
@@ -32,6 +33,8 @@ export class PlayerStat{
         this.availableUpgrades = [];
         this.deafaultPointsPerClick = 1;
         this.percentForClick = 0;
+        this.prestigePoints = 0;
+        this.prestigePointsOnCurrentRun = 0;
     }
 }
 
@@ -50,6 +53,8 @@ export class PlayerStatJSON{
     pointsInTotal: string;
     pointsPerSecond: string;
     availableUpgrades: string;
+    prestigePoints: string;
+    prestigePointsOnCurrentRun: string;
     constructor(player: PlayerStat){
         this.pointsInTotal = player.pointsInTotal.toString();
         this.pointsPerClick = player.pointsPerClick.toString();
@@ -65,5 +70,7 @@ export class PlayerStatJSON{
         this.Build4 = JSON.stringify(player.Build4);
         this.Build5 = JSON.stringify(player.Build5);
         this.availableUpgrades = JSON.stringify(player.availableUpgrades);
+        this.prestigePoints = player.prestigePoints.toString();
+        this.prestigePointsOnCurrentRun = player.prestigePointsOnCurrentRun.toString();
     }
 }

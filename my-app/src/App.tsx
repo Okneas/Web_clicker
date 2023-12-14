@@ -5,32 +5,35 @@ import { Building } from './building';
 import {addUser, getUser} from './API';
 import { PlayerStatJSON } from './Player';
 import { CaravanGen, Caravan } from './caravan';
+import { makePrestige } from './prestige';
 
 export let beatifyNumber = (num: number) => {
   if(num <= 10**3)
     return num.toFixed(2);
-  else if(num >= 10**3) 
+  else if(num >= 10**3 && num < 10**6) 
     return (num/(10**3)).toFixed(2) + "K";
-  else if(num >= 10**6)
+  else if(num >= 10**6 && num < 10**9)
     return (num/(10**6)).toFixed(2) + "M";
-  else if(num >= 10**9)
+  else if(num >= 10**9 && num < 10**12)
     return (num/(10**9)).toFixed(2) + "B";
-  else if(num >= 10**12)
+  else if(num >= 10**12 && num < 10**15)
     return (num/(10**12)).toFixed(2) + "T";
-  else if(num >= 10**15)
+  else if(num >= 10**15 && num < 10**18)
     return (num/(10**15)).toFixed(2) + "Qa";
-  else if(num >= 10**18)
+  else if(num >= 10**18 && num < 10**21)
     return (num/(10**18)).toFixed(2) + "Qi";
-  else if(num >= 10**21)
+  else if(num >= 10**21 && num < 10**24)
     return (num/(10**21)).toFixed(2) + "Sx";
-  else if(num >= 10**24)
+  else if(num >= 10**24 && num < 10**27)
     return (num/(10**24)).toFixed(2) + "Sp";
-  else if(num >= 10**27)
+  else if(num >= 10**27 && num < 10**30)
     return (num/(10**27)).toFixed(2) + "Oc";
-  else if(num >= 10**30)
+  else if(num >= 10**30 && num < 10**33)
     return (num/(10**30)).toFixed(2) + "No";
-  else if(num >= 10**33)
+  else if(num >= 10**33 && num < 10**36)
     return (num/(10**33)).toFixed(2) + "De";
+  else
+    return num.toExponential();
 }
 
 export let containerOfUpgrades: JSX.Element[] = [];
@@ -47,9 +50,13 @@ let bonusMultPerSecond = 1;
 let bonusMultPerClick = 1;
 
 export function App() {
-  const [PPT, setPPT] = useState(thisPlayer.pointsInTotal);
-  const [PPC, setPPC] = useState(thisPlayer.pointsPerClick);
-  const [PPS, setPPS] = useState(thisPlayer.pointsPerSecond);
+  const [PPT, setPPT] = useState(beatifyNumber(thisPlayer.pointsInTotal));
+  const [PPC, setPPC] = useState(beatifyNumber(thisPlayer.pointsPerClick));
+  const [PPS, setPPS] = useState(beatifyNumber(thisPlayer.pointsPerSecond));
+  const [PP, setPP] = useState(thisPlayer.prestigePoints);
+  const [CPP, setCPP] = useState(thisPlayer.prestigePointsOnCurrentRun);
+  const basePriceOfPrestigePoint = 10**7;
+  const [priceOfPrestigePoint, setPPP] = useState(basePriceOfPrestigePoint * (1.07**thisPlayer.prestigePoints));
   let cordinates = {x: 0, y: 0};
 
   let body = document.querySelector("body");
@@ -160,12 +167,10 @@ export function App() {
 
   const AddOnClick = () => {
     thisPlayer.pointsInTotal += thisPlayer.pointsPerClick;
-    setPPT(thisPlayer.pointsInTotal+thisPlayer.pointsPerClick);
   }
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setPPT((prevCount) => prevCount + thisPlayer.pointsPerSecond);
       thisPlayer.pointsInTotal += thisPlayer.pointsPerSecond;
     }, 1000);
 
@@ -176,21 +181,36 @@ export function App() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      thisPlayer.pointsPerSecond = bonusMultPerSecond*((thisPlayer.Build1.count*thisPlayer.Build1.profitPerSecond)+
+      let profitFromAllBuildings = (thisPlayer.Build1.count*thisPlayer.Build1.profitPerSecond)+
       (thisPlayer.Build2.count*thisPlayer.Build2.profitPerSecond)+
       (thisPlayer.Build3.count*thisPlayer.Build3.profitPerSecond)+
       (thisPlayer.Build4.count*thisPlayer.Build4.profitPerSecond)+
-      (thisPlayer.Build5.count*thisPlayer.Build5.profitPerSecond));
-      thisPlayer.pointsPerClick = bonusMultPerClick * (thisPlayer.deafaultPointsPerClick + 
+      (thisPlayer.Build5.count*thisPlayer.Build5.profitPerSecond);
+      thisPlayer.pointsPerSecond = bonusMultPerSecond * (profitFromAllBuildings + profitFromAllBuildings*(thisPlayer.prestigePoints/100));
+      thisPlayer.pointsPerClick = 1000000*bonusMultPerClick * (thisPlayer.deafaultPointsPerClick + 
                                   (thisPlayer.pointsPerSecond * (thisPlayer.percentForClick/100)));
-      setPPT(thisPlayer.pointsInTotal);
-      setPPC(thisPlayer.pointsPerClick);  
-      setPPS(thisPlayer.pointsPerSecond);
+
+      setPPT(beatifyNumber(thisPlayer.pointsInTotal));
+      setPPC(beatifyNumber(thisPlayer.pointsPerClick));  
+      setPPS(beatifyNumber(thisPlayer.pointsPerSecond));
+      setPP(thisPlayer.prestigePoints);
     }, 1);
     return () => {
       clearInterval(interval);
     };
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+    if(thisPlayer.pointsInTotal >= (10**6 * ((thisPlayer.prestigePoints+thisPlayer.prestigePointsOnCurrentRun+1)**3 - (thisPlayer.prestigePoints+thisPlayer.prestigePointsOnCurrentRun)**3))){
+      thisPlayer.prestigePointsOnCurrentRun = Math.cbrt(thisPlayer.pointsInTotal/10**6);
+    }
+    setCPP(thisPlayer.prestigePointsOnCurrentRun);
+    }, 1);
+    return () => {
+    clearInterval(interval);
+  };
+  }, [priceOfPrestigePoint]);
 
   useEffect(() => {
     window.addEventListener('mousemove', handleMouseObjects);
@@ -201,19 +221,20 @@ export function App() {
   },[]);
 
   return (
-    <div className='main-block'>
+    <div className='main-block' onContextMenu={() => {return false;}}>
       <CaravanGen key={1}/>
-  
       <div className='clicker-block'>
         <div className='clicker-wrap'>
           <div className="clicker" onClick={AddOnClick}>
           </div>
         </div>
         <div className='info_clicks'>
-          <p>Всего очков: {beatifyNumber(PPT)}</p>
-          <p>Очков в секунду: {beatifyNumber(PPS)}</p>
-          <p>Кол-во очков за клик: {beatifyNumber(PPC)}</p>
+          <p>Всего очков: {PPT}</p>
+          <p>Очков в секунду: {PPS}</p>
+          <p>Кол-во очков за клик: {PPC}</p>
+          <p>Очки престижа: {beatifyNumber(PP)} Можно получить: {beatifyNumber(CPP)}</p>
         </div>
+        <button type="button" className='prestige-button' onClick={makePrestige}>Престиж</button>
       </div>
       <div className='registration-block'>
         <p className='registration-text'>Никнейм</p>
