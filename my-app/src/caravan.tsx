@@ -113,8 +113,8 @@ export function Caravan(props: CaravanProps) {
         position: 'absolute',
         left: `${props.x}px`,
         top:  `${props.y}px`,
-        width: "100px",
-        height: "100px",
+        width: "50px",
+        height: "50px",
       }}>
       </div>
     );

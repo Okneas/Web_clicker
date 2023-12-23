@@ -223,27 +223,35 @@ export function App() {
   return (
     <div className='main-block' onContextMenu={() => {return false;}}>
       <CaravanGen key={1}/>
-      <div className='clicker-block'>
-        <div className='clicker-wrap'>
-          <div className="clicker" onClick={AddOnClick}>
+      <div className="wrap-container">
+        <div className='sub-wrap-container'>
+            <div className='clicker-block'>
+              <div className='clicker-wrap'>
+                <div className="clicker" onClick={AddOnClick}></div>
+              </div>
+              <div className='info_clicks'>
+                <p>Всего очков: {PPT}</p>
+                <p>Очков в секунду: {PPS}</p>
+                <p>Кол-во очков за клик: {PPC}</p>
+                <p>Очки престижа: {beatifyNumber(PP)} <br></br> Можно получить: {beatifyNumber(CPP)}</p>
+              </div>
+            <button type="button" className='prestige-button' onClick={makePrestige}>Престиж</button>
+            </div>
+          <div className='registration-block'>
+            <h2>Регистрация</h2>
+            <input type="email" placeholder="Твой Никнейм" className='input-username' id='username'/>
+            <input type="email" placeholder="Твой пароль" className='input-password' id='password'/>
+            <button type="button" value="" className='registration-button' onClick={LoadOnClick}>Зарегистрироваться</button>
+            <button type="button" value="" className='registration-button' onClick={AddPlayerOnClick}>Сохранить прогресс</button>
           </div>
         </div>
-        <div className='info_clicks'>
-          <p>Всего очков: {PPT}</p>
-          <p>Очков в секунду: {PPS}</p>
-          <p>Кол-во очков за клик: {PPC}</p>
-          <p>Очки престижа: {beatifyNumber(PP)} Можно получить: {beatifyNumber(CPP)}</p>
+        
+        <div className='character-view'>
+          <div className='table'></div>
+          <div className="character"></div>
         </div>
-        <button type="button" className='prestige-button' onClick={makePrestige}>Престиж</button>
       </div>
-      <div className='registration-block'>
-        <p className='registration-text'>Никнейм</p>
-        <input type="email" className='input-username' id='username'/>
-        <p className='registration-text'>Пароль</p>
-        <input type="email" className='input-password' id='password'/>
-        <button type="button" value="" className='registration-button' onClick={LoadOnClick}>Загрузить</button>
-        <button type="button" value="" className='registration-button' onClick={AddPlayerOnClick}>Сохранить</button>
-      </div>
+      
       <div className='building-panel'>
         <div className='upgrade-panel'>
           {containerOfUpgrades}
@@ -253,8 +261,6 @@ export function App() {
         <Building name='Build3'/>
         <Building name='Build4'/>
         <Building name='Build5'/>
-      </div>
-      <div className='hzchoza-block' >
       </div>
     </div>
   );
