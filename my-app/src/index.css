@@ -70,7 +70,7 @@ body {
 .glow-point {
   z-index: 3;
   position: absolute;
-  box-shadow: 0rem 0rem 2rem 0.7rem green; /* Зеленая тень */
+  box-shadow: 0rem 0rem 2rem 0.7rem rgb(132, 192, 35); /* Зеленая тень */
   pointer-events: none; /* Элемент не реагирует на события мыши */
 }
 
@@ -109,19 +109,67 @@ code {
 .building-panel{
   z-index: 1;
   margin-left: auto;
+  margin-right: 20px;
+  border-radius: 5px;
+  height: 920px;
+  width: 620px;
+  background-color: #573f28;
+  margin-top: 10px;
+
+  background-image:url(../public/рамка.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+}
+  /*
+  z-index: 1;
+  margin-left: auto;
   margin-right: 10px;
   margin-top: 10px;
   border: 1px solid black;
   border-radius: 5px;
   width: 30%;
   height: 940px;
+  */
+  /*
+  border-image: url(../public/рамка.png);
+  border-image-width: 100%;
+  border-image:fill;
+  border-image-slice: 100%;
+  border-image-repeat: stretch;
+  */
+
+.bottle{
+  width: 176px;
+  height: 274px;
+  position:absolute;
+  margin-left: 1270px;
+  margin-top: 658px;
+  z-index: 3;
+}
+.ftop{
+  width: 620px;
+  height: 142px;
+  position:absolute;
+  margin-left: 1270px;
+  margin-top: 10px;
+  z-index: 3;
+}
+
+.herbs{
+  width: 130px;
+  height: 320px;
+  position:absolute;
+  margin-left: 1271px;
+  margin-top: 140px;
+  z-index: 4;
 }
 
 /* Основной блок для размещения элементов */
 .main-block{
   display: flex;
   flex-wrap: wrap; /* Перенос элементов на следующую строку при нехватке места */
-  background:#2D150D;
+  background:#331b14; /*#4b291e*/
   min-height: 100vh; /*убираем белое пространство снизку страницы */
 }
 
@@ -148,22 +196,25 @@ code {
 
 /* Блок для отдельного здания */
 .building-block{
-  z-index: 1;
+  z-index: -1;
   display: flexbox;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
   border: none;
-  background: rgb(255, 240, 171);
+  background: rgb(231, 211, 123);
   color: #52352b;
-  width: 70%;
+  width: 61%;
+  margin-right: 127px;
   height: 100px;
+  text-align: center;
+  padding-top:5px;
 }
 
 /* Стили для текста внутри блока здания */
 .building-block p {
-  z-index: 1;
+  z-index: -1;
   margin-left: 10px;
   user-select: none; /* Запрет выделения текста */
 }
@@ -172,11 +223,11 @@ code {
 .upgrade-plate{
   z-index: 1;
   margin: 5px;
-  border-radius: 5px;
-  border: 1px solid black;
   width: 40px;
   height: 40px;
   user-select: none; /* Запрет выделения текста */
+  border: 2px solid rgb(70, 38, 20);
+  border-radius: 5px;
 }
 
 /* Панель улучшений */
@@ -184,11 +235,12 @@ code {
   z-index: 1;
   display: flex;
   margin: auto;
-  margin-top: 20px;
+  margin-top: 134px;
   margin-bottom: 20px;
   border-radius: 5px;
-  border: 1px solid black;
-  width: 80%;
+  background: #916e4c;
+  width: 61%;
+  margin-right: 127px;
   height: 100px;
   user-select: none; /* Запрет выделения текста */
   flex-wrap: wrap; /* Перенос элементов на следующую строку при нехватке места */
@@ -207,6 +259,7 @@ code {
   flex-direction: column; /* Вертикальное расположение элементов */
   align-items: center;
 }
+
 
 /* Поля ввода для имени пользователя и пароля */
 .input-username,
@@ -253,17 +306,69 @@ code {
   margin-top: 20px;
 }
 
-
+/*----------------------Стол с билдингами-------------------------------*/
 .table{
-  width: 720px;
-  height: 268px;
+  width: 756px;
+  height: 300px;
   background-image: url(../public/table.png);
   background-size: contain;
   background-repeat: no-repeat;
   margin-top: 210px;
 }
 
- 
+.places{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 520px;
+  height: 110px;
+  position: absolute;
+  padding-left: 80px;
+  padding-top: 30px;
+}
+
+.row1, .row2, .row3{
+  border: 1px solid black;
+  display:flex;
+  flex-direction:row;
+  width: 100%;
+  height:80px;
+  margin-top: -50px;/*чтобы картинки перекрывались*/
+}
+
+.row1{
+  z-index: 1;
+  justify-content: space-around;
+  
+}
+.row2{
+  z-index: 2;
+  justify-content: space-between;
+  width: 500px;
+  margin-top: -60px;/*чтобы картинки перекрывались*/
+}
+.row3{
+  z-index: 3;
+  justify-content: space-around;
+  width: 440px;
+}
+
+.cell11, .cell12, .cell13,.cell21,.cell22,.cell23,.cell24,.cell31,.cell32,.cell33{
+  width: 80px;
+  border: 1px solid white;
+}
+
+.cell11, .cell12, .cell13{
+  background-color: pink;
+}
+.cell21,.cell22,.cell23,.cell24{
+  background-color: purple;
+}
+.cell31,.cell32,.cell33{
+  background-color:red;
+}
+/*-----------------------------------------------------*/
+
 .character{
   width: 284px;
   height: 400px;

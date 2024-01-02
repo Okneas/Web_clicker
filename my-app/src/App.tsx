@@ -247,20 +247,45 @@ export function App() {
         </div>
         
         <div className='character-view'>
-          <div className='table'></div>
+          <div className='table'>
+            <div className='places'>
+              <div className='row1'>
+                <div className='cell11'><input type="checkbox" id="hiddenCheckbox"></input></div>
+                <div className='cell12'><input type="checkbox" id="hiddenCheckbox"></input></div>
+                <div className='cell13'><input type="checkbox" id="hiddenCheckbox"></input></div>
+              </div>
+              <div className='row2'>
+                <div className='cell21'><input type="checkbox" id="hiddenCheckbox"></input></div>
+                <div className='cell22'><input type="checkbox" id="hiddenCheckbox"></input></div>
+                <div className='cell23'><input type="checkbox" id="hiddenCheckbox"></input></div>
+                <div className='cell24'><input type="checkbox" id="hiddenCheckbox"></input></div>
+              </div>
+              <div className='row3'>
+                <div className='cell31'><input type="checkbox" id="hiddenCheckbox"></input></div>
+                <div className='cell32'><input type="checkbox" id="hiddenCheckbox"></input></div>
+                <div className='cell33'><input type="checkbox" id="hiddenCheckbox"></input></div>
+              </div>
+            </div>
+          </div>
           <div className="character"></div>
         </div>
       </div>
       
+      <img className='herbs' src='herb.png'></img>
+      <img className='ftop' src='frametop.png'></img>
+      <img className='bottle' src='bottle.png'></img>
+
       <div className='building-panel'>
         <div className='upgrade-panel'>
           {containerOfUpgrades}
         </div>
-        <Building name='Build1'/>
-        <Building name='Build2'/>
-        <Building name='Build3'/>
-        <Building name='Build4'/>
-        <Building name='Build5'/>
+        <div className="building-wrapper">
+          <Building name='Build1'/>
+          <Building name='Build2'/>
+          <Building name='Build3'/>
+          <Building name='Build4'/>
+          <Building name='Build5'/>
+        </div>
       </div>
     </div>
   );
