@@ -1,14 +1,29 @@
+@font-face {
+font-family: 'Monocraft';
+src: url('../public/fonts/Monocraft.otf');
+}
+
+*{
+  font-family: 'Monocraft';
+  font-size: 15px;
+  line-height: 15px;
+}
+
 /* Общие стили для body: сброс отступов, установка семейства шрифтов и сглаживание шрифтов для лучшей читаемости */
 body {
   cursor: url(../public/coursor.png), pointer;
   margin: 0;
   /* Список семейств шрифтов для обеспечения совместимости на разных платформах */
+  /*
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  /* Сглаживание шрифтов для Webkit (Chrome, Safari) и Mozilla (Firefox) */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  */
+  color: rgb(252, 250, 230);
+  overflow-y: hidden; /* устранение вертикального  и горизонтального скролла */
+  overflow-x: hidden;
+  margin: 0;
+  margin-bottom: 0;
 }
 
 /* Стилизация иконки черепа с глазами, головой, зубами и обводкой с использованием box-shadow */
@@ -55,7 +70,7 @@ body {
 .glow-point {
   z-index: 3;
   position: absolute;
-  box-shadow: 0rem 0rem 2rem 0.7rem green; /* Зеленая тень */
+  box-shadow: 0rem 0rem 2rem 0.7rem rgb(132, 192, 35); /* Зеленая тень */
   pointer-events: none; /* Элемент не реагирует на события мыши */
 }
 
@@ -67,29 +82,24 @@ code {
 
 /* Стили для кнопки, изменяющие ее размер и положение при активации (нажатии) */
 .clicker{
-  position: relative;
-  left: 175px;
-  margin-top: 50px;
-  margin-left: auto;
-  margin-right: auto;
   width: 200px;
-  height: 150px;
+  height: 200px;
   background-image: url(../public/mask.png); /* Цвет фона */
 }
 
 /* Обертка для кнопки */
 .clicker-wrap{
-  position: relative;
-  width: 200px;
   height: 200px;
+  width: 200px;
 }
+
 
 /* Стили для блока с информацией о кликах */
 .info_clicks{
   position: relative;
   margin-left: auto;
   margin-right: auto;
-  width: 56%;
+  width: 280px;
   user-select: none; /* Запрет выделения текста */
   text-align: center; /* Выравнивание текста по центру */
   top: -30px;
@@ -99,44 +109,112 @@ code {
 .building-panel{
   z-index: 1;
   margin-left: auto;
+  margin-right: 20px;
+  border-radius: 5px;
+  height: 920px;
+  width: 620px;
+  background-color: #573f28;
+  margin-top: 10px;
+
+  background-image:url(../public/рамка.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+}
+  /*
+  z-index: 1;
+  margin-left: auto;
   margin-right: 10px;
   margin-top: 10px;
   border: 1px solid black;
   border-radius: 5px;
   width: 30%;
   height: 940px;
+  */
+  /*
+  border-image: url(../public/рамка.png);
+  border-image-width: 100%;
+  border-image:fill;
+  border-image-slice: 100%;
+  border-image-repeat: stretch;
+  */
+
+.bottle{
+  width: 176px;
+  height: 274px;
+  position:absolute;
+  margin-left: 1270px;
+  margin-top: 658px;
+  z-index: 3;
+}
+.ftop{
+  width: 620px;
+  height: 142px;
+  position:absolute;
+  margin-left: 1270px;
+  margin-top: 10px;
+  z-index: 3;
+}
+
+.herbs{
+  width: 130px;
+  height: 320px;
+  position:absolute;
+  margin-left: 1271px;
+  margin-top: 140px;
+  z-index: 4;
 }
 
 /* Основной блок для размещения элементов */
 .main-block{
   display: flex;
   flex-wrap: wrap; /* Перенос элементов на следующую строку при нехватке места */
+  background:#331b14; /*#4b291e*/
+  min-height: 100vh; /*убираем белое пространство снизку страницы */
+}
+
+.wrap-container{
+  display: flex;
+  flex-direction: column;
+  margin-left: 50px;
+}
+
+.sub-wrap-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 /* Блок для кнопки кликера */
 .clicker-block{
-  z-index: 1;
-  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
   height: 400px;
-  margin: 10px;
 }
 
 /* Блок для отдельного здания */
 .building-block{
-  z-index: 1;
+  z-index: -1;
   display: flexbox;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
   border-radius: 5px;
-  border: 1px solid black;
-  width: 70%;
+  border: none;
+  background: rgb(231, 211, 123);
+  color: #52352b;
+  width: 61%;
+  margin-right: 127px;
   height: 100px;
+  text-align: center;
+  padding-top:5px;
 }
 
 /* Стили для текста внутри блока здания */
 .building-block p {
-  z-index: 1;
+  z-index: -1;
   margin-left: 10px;
   user-select: none; /* Запрет выделения текста */
 }
@@ -145,11 +223,11 @@ code {
 .upgrade-plate{
   z-index: 1;
   margin: 5px;
-  border-radius: 5px;
-  border: 1px solid black;
   width: 40px;
   height: 40px;
   user-select: none; /* Запрет выделения текста */
+  border: 2px solid rgb(70, 38, 20);
+  border-radius: 5px;
 }
 
 /* Панель улучшений */
@@ -157,11 +235,12 @@ code {
   z-index: 1;
   display: flex;
   margin: auto;
-  margin-top: 20px;
+  margin-top: 134px;
   margin-bottom: 20px;
   border-radius: 5px;
-  border: 1px solid black;
-  width: 80%;
+  background: #916e4c;
+  width: 61%;
+  margin-right: 127px;
   height: 100px;
   user-select: none; /* Запрет выделения текста */
   flex-wrap: wrap; /* Перенос элементов на следующую строку при нехватке места */
@@ -169,20 +248,18 @@ code {
 
 /* Блок регистрации */
 .registration-block {
-  margin-left: 10px;
-  margin-right: auto;
   margin-top: 10px;
   margin-bottom: 10px;
   border-radius: 5px;
-  border: 1px solid black;
-  width: 35%;
+  background: rgb(134, 78, 64);
+  width: 750px;
   height: 400px;
   user-select: none; /* Запрет выделения текста */
   display: flex;
   flex-direction: column; /* Вертикальное расположение элементов */
-  line-height: 1.2px; 
-  z-index: 1;
+  align-items: center;
 }
+
 
 /* Поля ввода для имени пользователя и пароля */
 .input-username,
@@ -191,9 +268,11 @@ code {
   margin-top: 20px;
   margin-bottom: 20px;
   margin-right: auto;
-  width: 200px;
-  height: 20px;
+  width: 350px;
+  height: 30px;
   user-select: none; /* Запрет выделения текста */
+  border-radius: 15;
+  outline-color: rgb(255, 248, 150);
 }
 
 /* Текст в блоке регистрации */
@@ -209,19 +288,98 @@ code {
   margin-top: 20px;
   margin-bottom: 20px;
   margin-right: auto;
-  width: 210px;
-  height: 40px;
+  width: 280px;
+  height: 30px;
+  background: rgb(255, 248, 150);
+  border: none;
+  border-radius: 5px;
+  color: rgb(165, 115, 92);
 }
 
-.hzchoza-block{
-  width: 200px;
-  height: 200px;
+.character-view{
+  display: flex;
+  flex-direction: row;
+  width: 1200px;
+  height: 500px;
+  background: rgb(88, 72, 72);
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+/*----------------------Стол с билдингами-------------------------------*/
+.table{
+  width: 756px;
+  height: 300px;
+  background-image: url(../public/table.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-top: 210px;
+}
+
+.places{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 520px;
+  height: 110px;
+  position: absolute;
+  padding-left: 80px;
+  padding-top: 30px;
+}
+
+.row1, .row2, .row3{
   border: 1px solid black;
+  display:flex;
+  flex-direction:row;
+  width: 100%;
+  height:80px;
+  margin-top: -50px;/*чтобы картинки перекрывались*/
+}
+
+.row1{
+  z-index: 1;
+  justify-content: space-around;
+  
+}
+.row2{
+  z-index: 2;
+  justify-content: space-between;
+  width: 500px;
+  margin-top: -60px;/*чтобы картинки перекрывались*/
+}
+.row3{
+  z-index: 3;
+  justify-content: space-around;
+  width: 440px;
+}
+
+.cell11, .cell12, .cell13,.cell21,.cell22,.cell23,.cell24,.cell31,.cell32,.cell33{
+  width: 80px;
+  border: 1px solid white;
+}
+
+.cell11, .cell12, .cell13{
+  background-color: pink;
+}
+.cell21,.cell22,.cell23,.cell24{
+  background-color: purple;
+}
+.cell31,.cell32,.cell33{
+  background-color:red;
+}
+/*-----------------------------------------------------*/
+
+.character{
+  width: 284px;
+  height: 400px;
+  background-image: url(../public/alchemist.png);
+  background-repeat: no-repeat;
+  margin-top: 40px;
 }
 
 .caravan-pop{
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   background-image: url(../public/caravan.png);
   z-index: 10;
 }
@@ -246,9 +404,8 @@ code {
 
 .prestige-button{
   user-select: none;
-  position: relative;
-  width: 200px;
-  height: 30px;
-  left: 175px;
-  top: -35px;
+  width: 250px;
+  background-color:  rgb(255, 248, 150);
+  border-radius: 5px;
+  padding: 5px;
 }
